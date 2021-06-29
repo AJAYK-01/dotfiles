@@ -61,15 +61,15 @@ shift + alt - x : yabai -m space --mirror x-axis
 shift + alt - y : yabai -m space --mirror y-axis
 
 # Set insertion point for focused container
-shift + lctrl + alt - h : yabai -m window --insert west
-shift + lctrl + alt - j : yabai -m window --insert south
-shift + lctrl + alt - k : yabai -m window --insert north
-shift + lctrl + alt - l : yabai -m window --insert east
+shift + lctrl + alt - left : yabai -m window --insert west
+shift + lctrl + alt - down : yabai -m window --insert south
+shift + lctrl + alt - up : yabai -m window --insert north
+shift + lctrl + alt - right : yabai -m window --insert east
 
 # Float / Unfloat window
 shift + alt - space : \
-    yabai -m window --toggle float; \
-    yabai -m window --toggle border
+    yabai -m window --toggle float; 
+   # yabai -m window --toggle border
 
 # Restart Yabai
 shift + lctrl + alt - r : \
@@ -81,12 +81,18 @@ shift + lctrl + alt - r : \
 alt - f         : yabai -m window --toggle zoom-fullscreen
 shift + alt - f : yabai -m window --toggle native-fullscreen
 
+# make floating window fill screen
+alt - g     : yabai -m window --grid 1:1:0:0:1:1
+
 
 # STACKLINE ##############################################
 
 # Focus window up/down in stack
 ctrl - n : yabai -m window --focus stack.next
 ctrl - p : yabai -m window --focus stack.prev
+
+# Toggle Stack
+ctrl - g : ~/.config/skhd/toggle_stack.sh
 
 # Add the active window  to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
