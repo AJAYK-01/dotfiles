@@ -75,13 +75,13 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
+# zoxide and mcfly
+eval "$(zoxide init zsh)"
+eval "$(mcfly init zsh)"
+
 source $ZSH/oh-my-zsh.sh
 
-#Loading AutoJump
-[[ -s /Users/ajayk/.autojump/etc/profile.d/autojump.sh ]] && source /Users/ajayk/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
-
-#Loading Z 
+#Loading Z
 #source ~/.zsh-z.plugin.zsh
 
 # User configuration
@@ -115,24 +115,27 @@ export PATH="/opt/homebrew/opt/icu4c/bin:$PATH"
 export PATH="/opt/homebrew/opt/icu4c/sbin:$PATH"
 alias htop="sudo htop"
 
-PATH="/Users/ajayk/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/ajayk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/ajayk/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/ajayk/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/ajayk/perl5"; export PERL_MM_OPT;
+PATH="/Users/ajayk/perl5/bin${PATH:+:${PATH}}"
+export PATH
+PERL5LIB="/Users/ajayk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL5LIB
+PERL_LOCAL_LIB_ROOT="/Users/ajayk/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_LOCAL_LIB_ROOT
+PERL_MB_OPT="--install_base \"/Users/ajayk/perl5\""
+export PERL_MB_OPT
+PERL_MM_OPT="INSTALL_BASE=/Users/ajayk/perl5"
+export PERL_MM_OPT
 alias gtkwave="/Applications/gtkwave.app/Contents/Resources/bin/gtkwave"
 alias oapk="open ./build/app/outputs/flutter-apk"
 alias rosetta="arch -x86_64"
 alias lid="sudo pmset -a disablesleep"
-# alias mobile="adb connect 192.168.1.3 && scrcpy -m 720 & sleep 4 && /Applications/sndcpy-v1.0/sndcpy && exit"
-alias z="j"
 alias yabairs="brew services restart yabai"
 alias skhdrs="brew services restart skhd"
 alias wmstop="brew services stop yabai && brew services stop skhd"
 alias wmstart="brew services start yabai && brew services start skhd"
 
 # heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -145,7 +148,7 @@ export VLC='/Applications/VLC.app/Contents/MacOS/VLC'
 
 #scrcpy and sndcpy
 mobile() {
-	adb connect 192.168.1.4 && scrcpy -m 720 & 
+	adb connect 192.168.1.4 && scrcpy -m 720 &
 	sleep 8 && /Applications/sndcpy-v1.0/sndcpy &
 	while [[ $(pgrep scrcpy | wc -l | tr -d ' ') == "1" ]]; do
 		echo "scrcpy running"
@@ -155,6 +158,20 @@ mobile() {
 	exit
 }
 
+# memory check
+mem() {
+	ps_mem -p $(pgrep $1 | sed -z 's/\n/,/g;s/,$/\n/')
+}
 
 # heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# broot
+source /Users/ajayk/.config/broot/launcher/bash/br
+
+# autopair brackets
+source ~/.zsh-autopair/autopair.zsh
+autopair-init

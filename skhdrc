@@ -4,6 +4,9 @@ alt - return : "${HOME}"/.config/yabai/scripts/open_iterm2.sh
 # opens New window of Brave
 alt + shift - return : open -na "Brave Browser" --args --new-window
 
+# Restarts JiTouch
+cmd + alt - return : open -a "JiTouchStart.app"
+
 # Show system statistics
 fn + lalt - 1 : "${HOME}"/.config/yabai/scripts/show_cpu.sh
 fn + lalt - 2 : "${HOME}"/.config/yabai/scripts/show_mem.sh
@@ -57,8 +60,8 @@ alt - r         : yabai -m space --rotate 270
 shift + alt - r : yabai -m space --rotate 90
 
 # Rotate on X and Y Axis
-shift + alt - x : yabai -m space --mirror x-axis
-shift + alt - y : yabai -m space --mirror y-axis
+# shift + alt - x : yabai -m space --mirror x-axis
+# shift + alt - y : yabai -m space --mirror y-axis
 
 # Set insertion point for focused container
 shift + lctrl + alt - left : yabai -m window --insert west
