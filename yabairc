@@ -8,7 +8,7 @@ declare -A gaps
 declare -A color
 
 gaps["top"]="4"
-gaps["bottom"]="24"
+gaps["bottom"]="4"
 gaps["left"]="4"
 gaps["right"]="4"
 gaps["inner"]="4"
@@ -67,6 +67,7 @@ yabai -m config bottom_padding "${gaps["bottom"]}"
 yabai -m config left_padding "${gaps["left"]}"
 yabai -m config right_padding "${gaps["right"]}"
 yabai -m config window_gap "${gaps["inner"]}"
+yabai -m config external_bar all:24:0
 
 yabai -m config mouse_follows_focus off
 yabai -m config focus_follows_mouse off
@@ -99,9 +100,15 @@ yabai -m rule --add label="macfeh" app="^macfeh$" manage=off
 yabai -m rule --add label="System Preferences" app="^System Preferences$" title=".*" manage=off
 yabai -m rule --add label="App Store" app="^App Store$" manage=off
 yabai -m rule --add label="Preview" app="^Preview$" manage=off
+yabai -m rule --add label="UTM" app="^UTM$" manage=off
+yabai -m rule --add label="Mail" app="^Mail$" manage=off
+yabai -m rule --add label="MacZip" app="^MacZip$" manage=off
+yabai -m rule --add label="Paintbrush" app="^Paintbrush$" manage=off
 yabai -m rule --add label="Lulu" app="^Lulu$" manage=off
 yabai -m rule --add label="ProtonVPN" app="^ProtonVPN$" manage=off
+yabai -m rule --add label="Stickies" app="^Stickies$" manage=off
 yabai -m rule --add app="^Installer$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
 # yabai -m rule --add label="Simulator" app="^Simulator$" manage=off
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
 yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
@@ -123,9 +130,9 @@ yabai -m signal --add event=window_focused action="${ubersicht_spaces_refresh_co
 yabai -m signal --add event=window_title_changed action="${ubersicht_spaces_refresh_command}"
 
 # limelight color issue
-yabai -m signal --add event=space_changed \
-    action="~/.limelight/bin/limelight -m config active_color 0xff4AF29F" \
-    label=reborder-after-clear
+# yabai -m signal --add event=space_changed \
+#     action="~/.limelight/bin/limelight -m config active_color 0xff4AF29F" \
+#     label=reborder-after-clear
 
 # Restart JiTouch after wake from sleep
 yabai -m signal --add event=system_woke action="open -a 'JiTouchStart.app'"
@@ -136,8 +143,8 @@ printf "yabai: configuration loaded...\\n"
 # ===============================================
 
 # reload limelight when yabai restarts
-killall limelight &>/dev/null
-~/.limelight/bin/limelight && limelight -m config active_color 0xFF4AF29F &>/dev/null &
+# killall limelight &> /dev/null
+# ~/.limelight/bin/limelight && limelight -m config active_color 0xFF4AF29F &> /dev/null &
 
 echo "yabai configuration loaded.."
 

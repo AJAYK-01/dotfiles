@@ -11,7 +11,8 @@ export ZSH="/Users/ajayk/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="amuse"
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -75,11 +76,28 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
-# zoxide and mcfly
-eval "$(zoxide init zsh)"
-eval "$(mcfly init zsh)"
+# Iterm2 Shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 source $ZSH/oh-my-zsh.sh
+
+autoload -U promptinit
+promptinit
+# prompt pure
+
+export ZPLUG_HOME=/opt/homebrew/Cellar/zplug/2.4.2
+source $ZPLUG_HOME/init.zsh
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug load
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+	printf "Install? [y/N]: "
+	if read -q; then
+		echo
+		zplug install
+	fi
+fi
 
 #Loading Z
 #source ~/.zsh-z.plugin.zsh
@@ -126,6 +144,7 @@ export PERL_MB_OPT
 PERL_MM_OPT="INSTALL_BASE=/Users/ajayk/perl5"
 export PERL_MM_OPT
 alias gtkwave="/Applications/gtkwave.app/Contents/Resources/bin/gtkwave"
+alias ngrok="~/development/ngrok"
 alias oapk="open ./build/app/outputs/flutter-apk"
 alias rosetta="arch -x86_64"
 alias lid="sudo pmset -a disablesleep"
@@ -133,6 +152,12 @@ alias yabairs="brew services restart yabai"
 alias skhdrs="brew services restart skhd"
 alias wmstop="brew services stop yabai && brew services stop skhd"
 alias wmstart="brew services start yabai && brew services start skhd"
+alias cot="cot -n"
+alias mcs="mcfly search"
+alias cd="z"
+alias hidedesk='defaults write com.apple.finder CreateDesktop -bool false; killall Finder;'
+alias showdesk='defaults write com.apple.finder CreateDesktop -bool true; killall Finder;'
+alias xclip='pbcopy'
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH
@@ -148,7 +173,7 @@ export VLC='/Applications/VLC.app/Contents/MacOS/VLC'
 
 #scrcpy and sndcpy
 mobile() {
-	adb connect 192.168.1.4 && scrcpy -m 720 &
+	adb connect 192.168.1.3 && scrcpy -m 720 &
 	sleep 8 && /Applications/sndcpy-v1.0/sndcpy &
 	while [[ $(pgrep scrcpy | wc -l | tr -d ' ') == "1" ]]; do
 		echo "scrcpy running"
@@ -158,16 +183,15 @@ mobile() {
 	exit
 }
 
-# memory check
-mem() {
-	ps_mem -p $(pgrep $1 | sed -z 's/\n/,/g;s/,$/\n/')
-}
-
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/ajayk/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# zoxide and mcfly
+eval "$(zoxide init zsh)"
+eval "$(mcfly init zsh)"
 
 # broot
 source /Users/ajayk/.config/broot/launcher/bash/br
@@ -175,3 +199,20 @@ source /Users/ajayk/.config/broot/launcher/bash/br
 # autopair brackets
 source ~/.zsh-autopair/autopair.zsh
 autopair-init
+
+export PATH=/Users/ajayk/.tiup/bin:$PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+if [ $? -eq 0 ]; then
+	eval "$__conda_setup"
+else
+	if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+		. "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+	else
+		export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
+	fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
