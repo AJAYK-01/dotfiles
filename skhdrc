@@ -1,6 +1,10 @@
 # Stop yabai
-shift + alt - x : brew services stop yabai
-shift + alt - y : brew services start yabai
+# shift + alt - x : brew services stop yabai
+# shift + alt - y : brew services start yabai
+
+# Switch between Tiled and Floating
+shift + alt - x : yabai -m config layout float
+shift + alt - y : yabai -m config layout bsp
 
 # opens iTerm2
 alt - return : "${HOME}"/.config/yabai/scripts/open_iterm2.sh
@@ -13,6 +17,10 @@ alt + shift - b : osascript /Users/ajayk/.config/skhd/safari_new_window.scpt top
 
 # opens New window of Firefox
 alt + shift - f : open -n /Applications/Firefox\ Developer\ Edition.app
+
+# Turn off Maccy clipboard recording
+lctrl + alt - c : defaults write org.p0deje.Maccy ignoreEvents true
+lctrl + alt - v : defaults write org.p0deje.Maccy ignoreEvents false
 
 # Restarts JiTouch
 cmd + alt - return : open -a "JiTouchStart.app"
