@@ -3,8 +3,11 @@
 # shift + alt - y : brew services start yabai
 
 # Switch between Tiled and Floating
-shift + alt - x : yabai -m config layout float
-shift + alt - y : yabai -m config layout bsp
+# shift + alt - x : yabai -m config layout float
+# shift + alt - y : yabai -m config layout bsp
+
+cmd - illumination_down : yabai -m config layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+"${HOME}"/.config/yabai/scripts/tiling_notify.sh
 
 # opens iTerm2
 alt - return : "${HOME}"/.config/yabai/scripts/open_iterm2.sh
@@ -34,6 +37,7 @@ fn + lalt - 2 : "${HOME}"/.config/yabai/scripts/show_mem.sh
 fn + lalt - 3 : "${HOME}"/.config/yabai/scripts/show_bat.sh
 fn + lalt - 4 : "${HOME}"/.config/yabai/scripts/show_disk.sh
 fn + lalt - 5 : "${HOME}"/.config/yabai/scripts/show_song.sh
+fn + lalt - 6 : "${HOME}"/.config/yabai/scripts/tiling_notify.sh
 
 # Navigation
 # alt - h : yabai -m window --focus west
